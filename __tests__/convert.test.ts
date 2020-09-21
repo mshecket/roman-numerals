@@ -58,6 +58,34 @@ describe("Converting Roman numerals to Arabic numerals", () => {
   test("CCCLXXXVIII is converted to 388", () => {
     expect(convert("CCCLXXXVIII")).toBe(388);
   });
+  test("CDIII is converted to 403", () => {
+    expect(convert("CDIII")).toBe(403);
+  });
+  test("CMXCIX is converted to 999", () => {
+    expect(convert("CMXCIX")).toBe(999);
+  });
+  test("MMMI is converted to 3001", () => {
+    expect(convert("MMMI")).toBe(3001);
+  });
+
+  // Some random tests
+  test("MMMCXC is converted to 3190", () => {
+    expect(convert("MMMCXC")).toBe(3190);
+  });
+  test("MDXXI is converted to 1521", () => {
+    expect(convert("MDXXI")).toBe(1521);
+  });
+  test("MCXLIII is converted to 1143", () => {
+    expect(convert("MCXLIII")).toBe(1143);
+  });
+  test("DCCCLXIII is converted to 863", () => {
+    expect(convert("DCCCLXIII")).toBe(863);
+  });
+
+  // Convert even if the number is lowercase
+  test("mcmlxxix is converted to 1979", () => {
+    expect(convert("mcmlxxix")).toBe(1979);
+  });
 });
 
 describe("Converting Arabic numerals to Roman numerals", () => {
@@ -105,5 +133,42 @@ describe("Converting Arabic numerals to Roman numerals", () => {
   });
   test("398 is converted to CCCXCVIII", () => {
     expect(convert(398)).toBe("CCCXCVIII");
+  });
+  test("442 is converted to CDXLII", () => {
+    expect(convert(442)).toBe("CDXLII");
+  });
+  test("909 is converted to CMIX", () => {
+    expect(convert(909)).toBe("CMIX");
+  });
+  test("2020 is converted to MMXX", () => {
+    expect(convert(2020)).toBe("MMXX");
+  });
+  // Some random tests
+  test("3190 is converted to MMMCXC", () => {
+    expect(convert(3190)).toBe("MMMCXC");
+  });
+  test("1521 is converted to MDXXI", () => {
+    expect(convert(1521)).toBe("MDXXI");
+  });
+  test("1143 is converted to MCXLIII", () => {
+    expect(convert(1143)).toBe("MCXLIII");
+  });
+  test("863 is converted to DCCCLXIII", () => {
+    expect(convert(863)).toBe("DCCCLXIII");
+  });
+});
+
+describe("Catching invalid input", () => {
+  test("A nonsense string ('blah blah blah') should return 'error'", () => {
+    expect(convert("blah blah blah")).toBe("error");
+  });
+  test("A non-integer (3.14159) should return 'error'", () => {
+    expect(convert(3.14159)).toBe("error");
+  });
+  test("A string that starts as a valid Roman numeral and then goes bad should return an error", () => {
+    expect(convert("MMMXXSST")).toBe("error");
+  });
+  test("A negative number should cause an errror to be returned", () => {
+    expect(convert(-1)).toBe("error");
   });
 });
